@@ -26,7 +26,7 @@ const consultarRecursos = async (req, res) => {
       });
     }
 
-    let url = `${FHIR_BASE_URL}/${resourceType}?_count=50&_tag=https://fhirrisk.local/project|smart-fhir-risk-app;
+    let url = `${FHIR_BASE_URL}/${resourceType}?_count=50&_tag=https://fhirrisk.local/project|smart-fhir-risk-app`;
 
     if (q) {
       if (resourceType === 'Patient') {
