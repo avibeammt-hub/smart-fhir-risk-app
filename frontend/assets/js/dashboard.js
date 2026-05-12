@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3001/api';
+//const API_URL = 'http://localhost:3001/api';
+const API_URL = 'https://smart-fhir-risk-app.onrender.com/api';
 
 const token = localStorage.getItem('token');
 
