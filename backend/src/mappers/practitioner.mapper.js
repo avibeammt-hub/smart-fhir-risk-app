@@ -1,6 +1,18 @@
 const construirPractitionerFHIR = (profesional) => {
   return {
     resourceType: 'Practitioner',
+	
+	resourceType:'Organization',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
 
     active: profesional.activo == 1,
 

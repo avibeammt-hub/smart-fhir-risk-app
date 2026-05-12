@@ -1,5 +1,15 @@
 const construirRiskAssessmentFHIR = (data) => ({
   resourceType: 'RiskAssessment',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
   status: 'final',
   subject: {
     reference: `Patient/${data.uuid_patient}`

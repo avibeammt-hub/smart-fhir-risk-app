@@ -2,6 +2,16 @@ const construirPatientFHIR = (paciente) => {
 
     return {
         resourceType: 'Patient',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
 
         active: paciente.activo == 1,
 

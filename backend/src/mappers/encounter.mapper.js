@@ -1,5 +1,15 @@
 const construirEncounterFHIR = (data) => ({
   resourceType: 'Encounter',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
   status: 'finished',
   class: {
     system: 'http://terminology.hl7.org/CodeSystem/v3-ActCode',

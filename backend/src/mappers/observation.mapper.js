@@ -1,5 +1,15 @@
 const construirObservationFHIR = (obs) => ({
   resourceType: 'Observation',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
   status: 'final',
   code: {
     coding: obs.codigo

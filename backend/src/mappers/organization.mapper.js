@@ -5,6 +5,16 @@ const construirOrganizationFHIR = (
     return {
 
         resourceType:'Organization',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
 
         active:true,
 

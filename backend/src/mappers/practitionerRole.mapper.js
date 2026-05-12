@@ -1,6 +1,18 @@
 const construirPractitionerRoleFHIR = (vinculo) => {
   return {
     resourceType: 'PractitionerRole',
+	
+	resourceType:'Organization',
+		
+		meta: {
+				tag: 
+					[
+						{
+							system: 'https://fhirrisk.local/project',
+							code: 'smart-fhir-risk-app'
+						}
+					]
+		},
     active: vinculo.activo == 1,
 
     practitioner: {
