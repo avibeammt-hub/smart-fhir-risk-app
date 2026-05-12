@@ -1,0 +1,103 @@
+<section class="hero-mini">
+  <div>
+    <h2>Servicios clínicos FHIR</h2>
+    <p>
+      Administra servicios asistenciales asociados a una organización y punto de atención.
+    </p>
+  </div>
+
+  <button class="btn-main" onclick="abrirModalCrearServicio()">
+    <i class="bi bi-plus-circle"></i>
+    Nuevo servicio
+  </button>
+</section>
+
+<section class="panel">
+  <div class="table-header">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" id="txtBuscarServicio" placeholder="Buscar servicio clínico...">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Organización</th>
+          <th>Punto atención</th>
+          <th>Código servicio</th>
+          <th>Servicio</th>
+          <th>Nivel</th>
+          <th>Código FHIR</th>
+          <th>UUID FHIR</th>
+          <th>Estado</th>
+          <th width="140">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbodyServicios"></tbody>
+    </table>
+  </div>
+</section>
+
+<div class="modal fade" id="modalServicio" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-pro">
+
+      <div class="modal-header modal-header-pro">
+        <div>
+          <h5 id="tituloModalServicio">Nuevo servicio clínico</h5>
+          <span>FHIR HealthcareService asociado a Location</span>
+        </div>
+
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="idServicio">
+
+        <div class="row g-4">
+
+          <div class="col-md-12">
+            <label class="form-label">Punto de atención</label>
+            <select id="idSedeServicio" class="form-control"></select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Código servicio</label>
+            <input type="text" id="codigoServicio" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Nivel atención</label>
+            <input type="text" id="nivelAtencion" class="form-control" placeholder="Primario, Complementario...">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Nombre servicio</label>
+            <input type="text" id="nombreServicio" class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Descripción</label>
+            <textarea id="descripcionServicio" rows="3" class="form-control"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button class="btn-secondary-pro" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <button class="btn-main" onclick="guardarServicio()">
+          <i class="bi bi-save"></i>
+          Guardar y sincronizar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

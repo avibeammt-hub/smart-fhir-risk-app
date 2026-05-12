@@ -1,0 +1,108 @@
+<section class="hero-mini">
+  <div>
+    <h2>Profesionales FHIR</h2>
+    <p>Administra profesionales de salud y sincroniza el recurso Practitioner.</p>
+  </div>
+
+  <button class="btn-main" onclick="abrirModalCrearProfesional()">
+    <i class="bi bi-plus-circle"></i>
+    Nuevo profesional
+  </button>
+</section>
+
+<section class="panel">
+  <div class="table-header">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" id="txtBuscarProfesional" placeholder="Buscar profesional...">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Documento</th>
+          <th>Profesional</th>
+          <th>Especialidad</th>
+          <th>Registro</th>
+          <th>Código FHIR</th>
+          <th>UUID FHIR</th>
+          <th>Estado</th>
+          <th width="140">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyProfesionales"></tbody>
+    </table>
+  </div>
+</section>
+
+<div class="modal fade" id="modalProfesional" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-pro">
+
+      <div class="modal-header modal-header-pro">
+        <div>
+          <h5 id="tituloModalProfesional">Nuevo profesional</h5>
+          <span>FHIR Practitioner</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="idProfesional">
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <label class="form-label">Tipo documento</label>
+            <input type="text" id="tipoDocumentoProfesional" class="form-control" placeholder="CC">
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Número documento</label>
+            <input type="text" id="numeroDocumentoProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Nombres</label>
+            <input type="text" id="nombresProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Apellidos</label>
+            <input type="text" id="apellidosProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Especialidad</label>
+            <input type="text" id="especialidadProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Tarjeta profesional</label>
+            <input type="text" id="tarjetaProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <input type="text" id="telefonoProfesional" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Correo</label>
+            <input type="email" id="correoProfesional" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button class="btn-secondary-pro" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn-main" onclick="guardarProfesional()">
+          <i class="bi bi-save"></i>
+          Guardar y sincronizar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

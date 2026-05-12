@@ -1,0 +1,121 @@
+<section class="hero-mini">
+  <div>
+    <h2>Puntos de atención FHIR</h2>
+    <p>
+      Administra sedes, ubicaciones clínicas y puntos físicos asociados a una organización.
+    </p>
+  </div>
+
+  <button class="btn-main" onclick="abrirModalCrearSede()">
+    <i class="bi bi-plus-circle"></i>
+    Nuevo punto
+  </button>
+</section>
+
+<section class="panel">
+
+  <div class="table-header">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" id="txtBuscarSede" placeholder="Buscar punto de atención...">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Organización</th>
+          <th>Código habilitación</th>
+          <th>Punto atención</th>
+          <th>Ciudad</th>
+          <th>Código FHIR</th>
+          <th>FHIR UUID</th>
+          <th>Estado</th>
+          <th width="140">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbodySedes"></tbody>
+    </table>
+  </div>
+
+</section>
+
+<div class="modal fade" id="modalSede" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content modal-pro">
+
+      <div class="modal-header modal-header-pro">
+        <div>
+          <h5 id="tituloModalSede">Nuevo punto de atención</h5>
+          <span>FHIR Location asociado a Organization</span>
+        </div>
+
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <input type="hidden" id="idSede">
+
+        <div class="row g-4">
+
+          <div class="col-md-6">
+            <label class="form-label">Organización</label>
+            <select id="idEntidadSede" class="form-control"></select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Código habilitación</label>
+            <input type="text" id="codigoHabilitacion" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Nombre punto de atención</label>
+            <input type="text" id="nombrePunto" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Tipo punto</label>
+            <input type="text" id="tipoPunto" class="form-control" placeholder="Sede ambulatoria, principal, satélite...">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Departamento</label>
+            <input type="text" id="departamentoSede" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Ciudad</label>
+            <input type="text" id="ciudadSede" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <input type="text" id="telefonoSede" class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Dirección</label>
+            <textarea id="direccionSede" rows="3" class="form-control"></textarea>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer border-0">
+        <button class="btn-secondary-pro" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <button class="btn-main" onclick="guardarSede()">
+          <i class="bi bi-save"></i>
+          Guardar y sincronizar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

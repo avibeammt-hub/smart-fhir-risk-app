@@ -1,0 +1,359 @@
+<section class="hero-card">
+  <div>
+    <h2>Gestión clínica FHIR</h2>
+    <p>Administra valoraciones, signos vitales y evaluaciones clínicas en tiempo real.</p>
+  </div>
+</section>
+
+<div id="vistaBandejaValoracion">
+
+<section class="row g-4 mb-4">
+  <div class="col-md-3"><div class="table-card"><span class="text-muted fw-bold">Pacientes</span><h2 id="kpiTotalPacientes">0</h2></div></div>
+  <div class="col-md-3"><div class="table-card"><span class="text-muted fw-bold">Riesgo medio</span><h2 id="kpiMedio">0</h2></div></div>
+  <div class="col-md-3"><div class="table-card"><span class="text-muted fw-bold">Riesgo alto</span><h2 id="kpiAlto">0</h2></div></div>
+  <div class="col-md-3"><div class="table-card"><span class="text-muted fw-bold">Valorados hoy</span><h2 id="kpiHoy">0</h2></div></div>
+</section>
+
+<section id="panelBandejaValoracion" class="table-card">
+  <div class="table-header">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input id="txtBuscarPacienteValoracion" placeholder="Buscar por documento o nombre...">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Documento</th>
+          <th>Edad</th>
+          <th>Sexo</th>
+          <th>Riesgo</th>
+          <th>Última valoración</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyValoracion"></tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<section id="vistaFormularioValoracion" class="table-card mt-4 d-none">
+
+  <div class="table-header">
+    <div>
+      <span class="section-badge">NUEVA VALORACIÓN</span>
+      <h3 id="tituloPacienteValoracion" class="mt-2 mb-1">Valoración clínica</h3>
+      <p class="text-muted mb-0">Encounter + Observation + RiskAssessment</p>
+    </div>
+
+    <button class="btn-save" onclick="volverBandejaValoracion()">
+      <i class="bi bi-arrow-left"></i>
+      Volver
+    </button>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-4" hidden>
+      <label class="form-label">Paciente</label>
+      <input id="valPaciente" class="form-control" disabled>
+    </div>
+
+    <div class="col-md-4" hidden>
+      <label class="form-label">Profesional</label>
+      <select id="valProfesional" class="form-control"></select>
+    </div>
+
+    <div class="col-md-4" hidden>
+      <label class="form-label">Servicio clínico</label>
+      <select id="valServicio" class="form-control"></select>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Tipo contacto</label>
+      <select id="valTipoContacto" class="form-control">
+        <option>Consulta externa</option>
+        <option>Urgencias</option>
+        <option>Hospitalización</option>
+        <option>Control</option>
+      </select>
+    </div>
+
+    <div class="col-md-8">
+      <label class="form-label">Motivo consulta</label>
+      <input id="valMotivoConsulta" class="form-control">
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <h5 class="fw-bold mb-3">
+    <i class="bi bi-heart-pulse"></i>
+    Signos vitales
+  </h5>
+
+  <div class="row g-4">
+  
+	  <div class="col-md-2">
+		<label class="form-label">FC</label>
+		<input id="obsFC" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">FR</label>
+		<input id="obsFR" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Temperatura</label>
+		<input id="obsTemp" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Sat O2</label>
+		<input id="obsSat" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Peso (kg)</label>
+		<input id="obsPeso" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Talla (m)</label>
+		<input id="obsTalla" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">TA Sistólica</label>
+		<input id="obsTas" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">TA Diastólica</label>
+		<input id="obsTad" class="form-control">
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">PAM</label>
+		<input id="obsPam" class="form-control" disabled>
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">IMC</label>
+		<input id="obsImc" class="form-control" disabled>
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Clasificación IMC</label>
+		<input id="obsImcClasificacion" class="form-control" disabled>
+	  </div>
+
+	  <div class="col-md-2">
+		<label class="form-label">Dolor EVA</label>
+		<input id="obsDolor" type="number" min="0" max="10" class="form-control">
+	  </div>
+
+</div>
+
+  <hr class="my-4">
+	
+  <h5 class="fw-bold mb-3">
+	  <i class="bi bi-activity"></i>
+	  Riesgo cardiovascular y metabólico
+	</h5>
+  
+  
+  <div class="row g-4 mb-4">
+  
+  <div class="col-md-3">
+    <label class="form-label">Actividad física</label>
+    <select id="riskActividadFisica" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="SI">Sí</option>
+      <option value="NO">No</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Consume frutas/verduras</label>
+    <select id="riskFrutasVerduras" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="DIARIO">Todos los días</option>
+      <option value="NO_DIARIO">No todos los días</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Medicamento hipertensión</label>
+    <select id="riskMedicamentoHTA" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="SI">Sí</option>
+      <option value="NO">No</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Glucosa alta previa</label>
+    <select id="riskGlucosaAlta" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="SI">Sí</option>
+      <option value="NO">No</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Antecedente familiar diabetes</label>
+    <select id="riskFamiliarDiabetes" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="NO">No</option>
+      <option value="SEGUNDO_GRADO">Abuelos, tíos o primos</option>
+      <option value="PRIMER_GRADO">Padres, hermanos o hijos</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Fumador</label>
+    <select id="riskFumador" class="form-control">
+      <option value="">Seleccione...</option>
+      <option value="SI">Sí</option>
+      <option value="NO">No</option>
+    </select>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Colesterol total</label>
+    <input id="riskColesterolTotal" type="number" class="form-control">
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">HDL</label>
+    <input id="riskHdl" type="number" class="form-control">
+  </div>
+  
+  </div>
+
+  <hr class="my-4">
+  
+  <h5 class="fw-bold mb-3">
+    <i class="bi bi-shield-check"></i>
+    Evaluación clínica
+  </h5>
+  
+  <div id="contenedorAlertasClinicas"></div>
+  
+  <div class="risk-banner risk-bajo" id="bannerRiesgo">
+  <div>
+    <span class="risk-dot"></span>
+    <strong id="textoRiesgo">RIESGO BAJO</strong>
+  </div>
+
+  <small id="textoRiesgoDetalle">
+    Paciente estable clínicamente
+  </small>
+</div>
+
+
+
+
+
+<div class="row g-4 mb-4">
+
+  <div class="col-md-3">
+    <label class="form-label">Puntaje FINDRISC</label>
+    <input id="scoreFindrisc" class="form-control" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Clasificación FINDRISC</label>
+    <input id="clasificacionFindrisc" class="form-control" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Puntaje Framingham</label>
+    <input id="scoreFramingham" class="form-control" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Clasificación Framingham</label>
+    <input id="clasificacionFramingham" class="form-control" disabled>
+  </div>
+
+</div>
+
+  <div class="row g-4 mb-4">
+
+  <div class="col-md-3">
+    <label class="form-label">NEWS2</label>
+    <input id="scoreNews2" class="form-control" disabled>
+  </div>
+
+  <div class="col-md-3">
+    <label class="form-label">Clasificación NEWS2</label>
+    <input id="clasificacionNews2" class="form-control" disabled>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label">Interpretación NEWS2</label>
+    <input id="interpretacionNews2" class="form-control" disabled>
+  </div>
+
+</div>
+  
+  
+  <div class="row g-4">
+    <div class="col-md-4"  hidden>
+      <label class="form-label">Riesgo global</label>
+      <select id="valRiesgo" class="form-control">
+		  <option>Bajo</option>
+		  <option>Moderado</option>
+		  <option>Alto</option>
+		  <option>Crítico</option>
+		</select>
+    </div>
+
+    <div class="col-md-12">
+      <label class="form-label">Recomendación general</label>
+      <textarea id="valRecomendacion" class="form-control" rows="3"></textarea>
+    </div>
+  </div>
+
+
+  <div class="text-end mt-4">
+  <button class="btn-save" onclick="guardarValoracion()">
+    <i class="bi bi-save"></i>
+    Guardar valoración
+  </button>
+</div>
+
+<hr class="my-5">
+
+<div class="timeline-container">
+
+  <div class="timeline-header">
+    <h4>
+      <i class="bi bi-clock-history"></i>
+      Historial clínico
+    </h4>
+
+    <span class="timeline-subtitle">
+      Últimas valoraciones del paciente
+    </span>
+  </div>
+
+  <div id="timelineValoraciones">
+    <div class="empty-state">
+      Sin historial clínico
+    </div>
+  </div>
+
+</div>
+
+</section>
+
+

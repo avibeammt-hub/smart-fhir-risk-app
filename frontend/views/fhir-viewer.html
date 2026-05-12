@@ -1,0 +1,157 @@
+<section class="hero-mini">
+
+  <div>
+    <h2 class="mt-2">
+      FHIR Viewer
+    </h2>
+
+    <p>
+      Visualización interoperable de recursos HL7 FHIR.
+    </p>
+  </div>
+
+
+</section>
+
+<section class="table-card mt-4">
+
+  <div class="table-header">
+
+    <div class="fhir-toolbar">
+
+      <select id="filtroRecursoFhir" class="form-control">
+
+			<option value="Patient">Patient</option>
+			<option value="Observation">Observation</option>
+			<option value="Encounter">Encounter</option>
+			<option value="RiskAssessment">RiskAssessment</option>
+			<option value="Practitioner">Practitioner</option>
+			<option value="Organization">Organization</option>
+			<option value="Location">Location</option>
+			<option value="HealthcareService">HealthcareService</option>
+			
+		</select>
+
+		  <input
+			id="txtBuscarFhir"
+			class="form-control"
+			placeholder="ID FHIR o documento paciente...">
+
+		  <button
+			class="btn-save btn-fhir-search"
+			onclick="consultarRecursosFhir()">
+			<i class="bi bi-search"></i>
+			Consultar
+		  </button>
+
+	</div>
+    </div>
+
+  </div>
+
+  <div class="row g-4 mt-2 mb-4">
+
+    <div class="col-md-3">
+
+      <div class="table-card fhir-kpi-card">
+
+        <span class="text-muted fw-bold">
+          Total recursos
+        </span>
+
+        <h2 id="kpiFhirTotal">
+          0
+        </h2>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+      <div class="table-card fhir-kpi-card">
+
+        <span class="text-muted fw-bold">
+          Recurso actual
+        </span>
+
+        <h2 id="kpiFhirTipo">
+          -
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="table-responsive">
+
+    <table class="table align-middle">
+
+      <thead>
+
+        <tr>
+          <th>ID FHIR</th>
+          <th>Tipo</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>FHIR</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="tbodyFhirViewer">
+
+        <tr>
+
+          <td
+            colspan="5"
+            class="text-center fhir-empty">
+
+            Consulte recursos FHIR
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+<div
+  class="modal fade"
+  id="modalJsonFhir"
+  tabindex="-1">
+
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+    <div class="modal-content modal-pro">
+
+		<div class="modal-header modal-header-pro d-flex justify-content-between align-items-center">
+
+		  <div>
+			<h5 class="mb-0">JSON FHIR</h5>
+			<span>Recurso interoperable HL7 FHIR</span>
+		  </div>
+
+		  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+		</div>
+
+      <div class="modal-body">
+
+        <pre id="jsonFhirViewer"></pre>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+

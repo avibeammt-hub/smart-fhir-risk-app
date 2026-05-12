@@ -1,0 +1,119 @@
+<section class="hero-mini">
+
+  <div>
+    <h2>Organizaciones FHIR</h2>
+    <p>
+      Administra instituciones prestadoras y entidades de salud del ecosistema interoperable.
+    </p>
+  </div>
+
+  <button class="btn-main" onclick="abrirModalCrear()">
+    <i class="bi bi-plus-circle"></i>
+    Nueva organización
+  </button>
+
+</section>
+
+<section class="panel">
+
+  <div class="table-header">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input type="text" id="txtBuscar" placeholder="Buscar organización...">
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>NIT</th>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th width="140">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbodyOrganizaciones"></tbody>
+    </table>
+  </div>
+
+</section>
+
+<div class="modal fade" id="modalOrganizacion" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content modal-pro">
+
+      <div class="modal-header modal-header-pro">
+        <div>
+          <h5 id="tituloModal">Nueva organización</h5>
+          <span>Configuración institucional</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal">
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <input type="hidden" id="idOrganizacion">
+
+        <div class="row g-4">
+
+          <div class="col-md-6">
+            <label class="form-label">NIT</label>
+            <input type="text" id="nit" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Tipo entidad</label>
+            <input type="text" id="tipoEntidad" class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Nombre organización</label>
+            <input type="text" id="nombreEntidad" class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Razón social</label>
+            <input type="text" id="razonSocial" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Teléfono</label>
+            <input type="text" id="telefono" class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Correo</label>
+            <input type="email" id="correo" class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">Dirección</label>
+            <textarea id="direccion" rows="3" class="form-control"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="modal-footer border-0">
+        <button class="btn-secondary-pro" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+
+        <button class="btn-main" onclick="guardarOrganizacion()">
+          <i class="bi bi-save"></i>
+          Guardar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

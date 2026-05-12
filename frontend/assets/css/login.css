@@ -1,0 +1,263 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:#0f172a;
+    overflow:hidden;
+}
+
+.login-container{
+    width:100%;
+    height:100vh;
+    display:flex;
+}
+
+/* ========================================= */
+/* IZQUIERDA */
+/* ========================================= */
+
+.login-left{
+    width:55%;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(249,115,22,.95),
+            rgba(194,65,12,.95)
+        ),
+        url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?q=80&w=2070');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.25);
+}
+
+.left-content{
+    position:relative;
+    z-index:10;
+    color:white;
+    width:70%;
+}
+
+.logo-badge{
+    width:90px;
+    height:90px;
+    border-radius:24px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:30px;
+}
+
+.logo-badge i{
+    font-size:40px;
+}
+
+.left-content h1{
+    font-size:58px;
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:25px;
+}
+
+.left-content p{
+    font-size:20px;
+    line-height:1.8;
+    opacity:.95;
+}
+
+.fhir-badges{
+    margin-top:35px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.fhir-chip{
+    padding:10px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(8px);
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ========================================= */
+/* DERECHA */
+/* ========================================= */
+
+.login-right{
+    width:45%;
+    background:#0f172a;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.login-card{
+    width:430px;
+    padding:45px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:28px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.4);
+
+    color:white;
+}
+
+.login-card h2{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.login-card .subtitle{
+    color:#94a3b8;
+    margin-bottom:35px;
+}
+
+.form-group{
+    margin-bottom:22px;
+}
+
+.form-label{
+    display:block;
+    margin-bottom:10px;
+    font-size:14px;
+    color:#cbd5e1;
+}
+
+.form-control{
+    width:100%;
+    height:55px;
+
+    border:none;
+    outline:none;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.06);
+
+    padding:0 18px;
+
+    color:white;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.form-control:focus{
+    border:1px solid #f97316;
+    background:rgba(255,255,255,.08);
+}
+
+.btn-login{
+    width:100%;
+    height:55px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        #f97316,
+        #ea580c
+    );
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-login:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(249,115,22,.35);
+}
+
+.server-status{
+    margin-top:25px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-size:14px;
+
+    color:#94a3b8;
+}
+
+.status-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#22c55e;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    50%{
+        transform:scale(1.5);
+        opacity:.5;
+    }
+
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width:1200px){
+
+    .login-left{
+        display:none;
+    }
+
+    .login-right{
+        width:100%;
+    }
+
+}

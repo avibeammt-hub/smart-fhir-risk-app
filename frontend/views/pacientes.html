@@ -1,0 +1,228 @@
+<div class="module-container fade-in">
+
+    
+
+    <div class="hero-card">
+        <div>
+            <h2>Pacientes FHIR</h2>
+
+            <p>
+                Administra pacientes clínicos sincronizados
+                automáticamente con FHIR Patient.
+            </p>
+        </div>
+
+        <button class="btn-hero"
+            onclick="abrirModalPaciente()">
+
+            <i class="bi bi-plus-circle"></i>
+            Nuevo paciente
+        </button>
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-header">
+            <div class="search-box">
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    id="buscarPaciente"
+                    placeholder="Buscar paciente..."
+                >
+            </div>
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>DOCUMENTO</th>
+                        <th>PACIENTE</th>
+                        <th>SEXO</th>
+                        <th>NACIMIENTO</th>
+                        <th>TELÉFONO</th>
+                        <th>CÓDIGO FHIR</th>
+                        <th>UUID FHIR</th>
+                        <th>ESTADO</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbodyPacientes"></tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalPaciente" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content modal-pro">
+
+      <div class="modal-header modal-header-pro">
+
+        <div>
+          <h5 id="tituloModalPaciente">
+            Nuevo paciente
+          </h5>
+
+          <span>
+            FHIR Patient sincronizado
+          </span>
+        </div>
+
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <input type="hidden" id="idPaciente">
+
+        <div class="row g-4">
+
+          <div class="col-md-3">
+            <label class="form-label">
+              Tipo documento
+            </label>
+
+            <select
+              id="tipoDocumentoPaciente"
+              class="form-control">
+
+              <option value="CC">CC</option>
+              <option value="TI">TI</option>
+              <option value="CE">CE</option>
+              <option value="PP">PP</option>
+
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">
+              Número documento
+            </label>
+
+            <input
+              type="text"
+              id="numeroDocumentoPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">
+              Sexo
+            </label>
+
+            <select
+              id="sexoPaciente"
+              class="form-control">
+
+              <option value="M">
+                Masculino
+              </option>
+
+              <option value="F">
+                Femenino
+              </option>
+
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">
+              Fecha nacimiento
+            </label>
+
+            <input
+              type="date"
+              id="fechaNacimientoPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">
+              Nombres
+            </label>
+
+            <input
+              type="text"
+              id="nombresPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">
+              Apellidos
+            </label>
+
+            <input
+              type="text"
+              id="apellidosPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">
+              Correo
+            </label>
+
+            <input
+              type="email"
+              id="correoPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">
+              Teléfono
+            </label>
+
+            <input
+              type="text"
+              id="telefonoPaciente"
+              class="form-control">
+          </div>
+
+          <div class="col-md-12">
+            <label class="form-label">
+              Dirección
+            </label>
+
+            <textarea
+              id="direccionPaciente"
+              rows="3"
+              class="form-control">
+            </textarea>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer modal-footer-pro">
+
+
+        <button
+          class="btn-save"
+          onclick="guardarPaciente()">
+
+          <i class="bi bi-save"></i>
+          Guardar y sincronizar
+
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+

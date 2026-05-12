@@ -1,0 +1,146 @@
+<section class="hero-panel">
+  <div>
+    <span class="hero-chip">
+      <i class="bi bi-shield-check"></i>
+      HL7 FHIR R4 activo
+    </span>
+
+    <h1>Centro de valoración clínica e interoperabilidad</h1>
+
+    <p>
+      Gestiona pacientes, calcula riesgos cardiovasculares y metabólicos,
+      genera recursos FHIR y sincroniza información clínica.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-main">
+        <i class="bi bi-plus-circle"></i>
+        Nueva valoración
+      </button>
+
+      <button class="btn-secondary-pro">
+        <i class="bi bi-code-slash"></i>
+        Ver recursos FHIR
+      </button>
+    </div>
+  </div>
+
+  <div class="flow-card">
+    <div class="flow-title">Flujo FHIR</div>
+
+    <div class="flow-step">
+      <span>Organization</span>
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+
+    <div class="flow-step">
+      <span>Location</span>
+      <i class="bi bi-check-circle-fill"></i>
+    </div>
+
+    <div class="flow-step">
+      <span>Patient</span>
+      <i class="bi bi-clock-fill pending"></i>
+    </div>
+
+    <div class="flow-step">
+      <span>RiskAssessment</span>
+      <i class="bi bi-clock-fill pending"></i>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-grid">
+
+  <div class="kpi-card">
+    <div class="kpi-icon orange">
+      <i class="bi bi-people-fill"></i>
+    </div>
+    <div>
+      <span>Pacientes</span>
+      <h3 id="kpiPacientes">0</h3>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-icon red">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+    </div>
+    <div>
+      <span>Riesgo alto</span>
+      <h3 id="kpiRiesgoAlto">0</h3>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-icon yellow">
+      <i class="bi bi-activity"></i>
+    </div>
+    <div>
+      <span>Valoraciones</span>
+      <h3 id="kpiValoraciones">0</h3>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div class="kpi-icon green">
+      <i class="bi bi-cloud-check-fill"></i>
+    </div>
+    <div>
+      <span>FHIR enviados</span>
+      <h3 id="kpiFhir">0</h3>
+    </div>
+  </div>
+
+</section>
+
+<section class="content-grid">
+
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <span class="eyebrow">Actividad clínica</span>
+        <h5>Últimos pacientes</h5>
+      </div>
+    </div>
+
+    <div id="ultimosPacientes"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <span class="eyebrow">Arquitectura</span>
+        <h5>Ruta interoperable</h5>
+      </div>
+    </div>
+
+    <div class="route-map">
+      <div class="route-node">
+        <i class="bi bi-building"></i>
+        <span>Organización</span>
+      </div>
+      <div class="route-line"></div>
+      <div class="route-node">
+        <i class="bi bi-geo-alt"></i>
+        <span>Sede</span>
+      </div>
+      <div class="route-line"></div>
+      <div class="route-node">
+        <i class="bi bi-hospital"></i>
+        <span>Servicio</span>
+      </div>
+      <div class="route-line"></div>
+      <div class="route-node">
+        <i class="bi bi-person"></i>
+        <span>Paciente</span>
+      </div>
+      <div class="route-line"></div>
+      <div class="route-node">
+        <i class="bi bi-heart-pulse"></i>
+        <span>Riesgo</span>
+      </div>
+    </div>
+  </div>
+
+</section>
