@@ -171,7 +171,7 @@ async function guardarValoracion() {
       observaciones: construirObservacionesValoracion(),
 	  escalas: construirResultadosEscalas(),
 	  alertas: detectarAlertas(),
-	  diagnosticos: diagnosticosSeleccionados()
+	  diagnosticos: diagnosticosSeleccionados
     };
 	
     if (!payload.motivo_consulta) {
