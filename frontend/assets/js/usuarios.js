@@ -135,6 +135,8 @@ async function cargarProfesionales() {
       : (data.data || []);
 
     const select = document.getElementById('usrProfesional');
+	
+	console.log(select);
 
     select.innerHTML = `
       <option value="">Seleccione...</option>
@@ -167,6 +169,7 @@ async function cargarProfesionales() {
 }
 
 function abrirModalUsuario() {
+  cargarProfesionales();
   usuarioEditando = null;
   limpiarFormularioUsuario();
 
