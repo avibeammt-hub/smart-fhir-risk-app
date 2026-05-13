@@ -14,6 +14,9 @@ const {
   construirRiskAssessmentFHIR
 } = require('../../mappers/riskAssessment.mapper');
 
+const { construirConditionFHIR
+} = require('../../mappers/condition.mapper');
+
 const listarBandejaPacientes = async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -373,6 +376,64 @@ const crearValoracion = async (req, res) => {
 	  }
 
 	}
+	
+	
+	// =========================
+// GUARDAR DIAGNÓSTICOS SNOMED
+// =========================
+
+if (req.body.diagnosticos?.length) {
+
+  for (const diag of req.body.diagnosticos) {
+
+    const [diagResult] = await conexion.query(`
+      INSERT INTO val_diagnosticos (
+        id_valoracion,
+        concept_id,
+        termino,
+        tipo_diagnostico,
+        observacion
+      )
+      VALUES (?, ?, ?, ?, ?)
+    `, [
+      riesgoResult.insertId,
+      diag.concept_id,
+      diag.term,
+      diag.tipo_diagnostico || 'PRINCIPAL',
+      diag.observacion || null
+    ]);
+
+    // ======================
+    // CONDITION FHIR
+    // ======================
+
+    const conditionFHIR = construirConditionFHIR({
+      uuid_patient: paciente.uuid_fhir,
+      uuid_encounter: uuidEncounter,
+
+      concept_id: diag.concept_id,
+      termino: diag.term,
+
+      tipo_diagnostico: diag.tipo_diagnostico
+    });
+
+    const respuestaCondition =
+      await crearResourceFHIR(
+        'Condition',
+        conditionFHIR
+      );
+
+    if (!respuestaCondition.ok) {
+
+      throw new Error(
+        `Error creando Condition FHIR: ${diag.term}`
+      );
+
+    }
+
+  }
+
+}
 
     const riskFHIR = construirRiskAssessmentFHIR({
       uuid_patient: paciente.uuid_fhir,
