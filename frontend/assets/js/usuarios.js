@@ -115,6 +115,7 @@ async function cargarRoles() {
 }
 
 async function cargarProfesionales() {
+
   try {
 
     const token = localStorage.getItem('token');
@@ -127,11 +128,11 @@ async function cargarProfesionales() {
 
     const data = await respuesta.json();
 
-    if (!data.ok) {
-      throw new Error(data.mensaje || 'Error cargando profesionales');
-    }
+    console.log('PROFESIONALES:', data);
 
-    const profesionales = data.data || [];
+    const profesionales = Array.isArray(data)
+      ? data
+      : (data.data || []);
 
     const select = document.getElementById('usrProfesional');
 
@@ -160,7 +161,9 @@ async function cargarProfesionales() {
       'No fue posible cargar profesionales',
       'error'
     );
+
   }
+
 }
 
 function abrirModalUsuario() {
