@@ -1,8 +1,6 @@
 const construirPractitionerRoleFHIR = (vinculo) => {
   return {
     resourceType: 'PractitionerRole',
-	
-	resourceType:'Organization',
 		
 		meta: {
 				tag: 
