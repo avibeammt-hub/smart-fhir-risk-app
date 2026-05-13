@@ -53,20 +53,15 @@ function pintarVinculos(lista) {
   if (!tbody) return;
 
   tbody.innerHTML = '';
-
+  
   if (!lista.length) {
-
     tbody.innerHTML = `
       <tr>
-        <td colspan="9" class="text-center text-muted py-4">
-            class="text-center text-muted py-4">
-
+        <td colspan="8" class="text-center text-muted py-4">
           No hay vínculos registrados
-
         </td>
       </tr>
     `;
-
     return;
   }
 
