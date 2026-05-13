@@ -50,7 +50,7 @@
       <div class="modal-header modal-header-pro">
         <div>
           <span>SEGURIDAD</span>
-          <h5 class="modal-title">Crear usuario</h5>
+          <h5 id="tituloModalUsuario" class="modal-title">Crear usuario</h5>
         </div>
 
         <button type="button" class="btn-close-pro" data-bs-dismiss="modal">
@@ -66,10 +66,10 @@
             <input id="usrUsuario" class="form-control">
           </div>
 
-          <div class="col-md-6">
-            <label class="form-label">Contraseña inicial *</label>
-            <input id="usrClave" type="password" class="form-control">
-          </div>
+          <div class="col-md-6" id="grupoClaveUsuario">
+			  <label class="form-label">Contraseña inicial *</label>
+			  <input id="usrClave" type="password" class="form-control">
+		  </div>
 
           <div class="col-md-6">
             <label class="form-label">Nombre completo *</label>
