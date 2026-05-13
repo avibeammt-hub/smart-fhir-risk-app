@@ -168,16 +168,21 @@ async function cargarProfesionales() {
 
 }
 
-function abrirModalUsuario() {
-  cargarProfesionales();
+async function abrirModalUsuario() {
+
   usuarioEditando = null;
   limpiarFormularioUsuario();
 
   document.getElementById('tituloModalUsuario').textContent = 'Crear usuario';
   document.getElementById('usrClave').disabled = false;
-  document.getElementById('grupoClaveUsuario').classList.remove('d-none');
+  document
+    .getElementById('grupoClaveUsuario')
+    .classList.remove('d-none');
 
+  await cargarProfesionales();
+  controlarProfesionalUsuario();
   modalUsuario.show();
+
 }
 
 function editarUsuario(idUsuario) {
@@ -387,5 +392,6 @@ function limpiarFormularioUsuario() {
 
   document
     .getElementById('grupoProfesionalUsuario')
-    .classList.add('d-none');
+    //.classList.add('d-none');
+	.classList.remove('d-none');
 }
