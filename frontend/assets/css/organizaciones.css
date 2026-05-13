@@ -662,10 +662,17 @@
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:18px;
+  padding:18px 20px;
   border-radius:18px;
-  background:#fff7ed;
+  background:#ffffff;
+  border:1px solid #e2e8f0;
   margin-bottom:14px;
+  transition:.2s ease;
+}
+
+.diagnostico-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(15,23,42,.06);
 }
 
 .diagnostico-title{
@@ -676,4 +683,22 @@
 .diagnostico-code{
   color:#94a3b8;
   font-size:.9rem;
+}
+
+.select-diagnostico{
+  min-width:180px;
+  max-width:200px;
+  border-radius:14px !important;
+  border:1px solid #e2e8f0 !important;
+  background:#ffffff !important;
+  min-height:48px;
+  font-weight:700;
+  color:#0f172a;
+  box-shadow:none !important;
+  transition:.2s ease;
+}
+
+.select-diagnostico:focus{
+  border-color:#f97316 !important;
+  box-shadow:0 0 0 4px rgba(249,115,22,.12) !important;
 }

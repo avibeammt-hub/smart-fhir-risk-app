@@ -1233,8 +1233,7 @@ function pintarDiagnosticosSeleccionados() {
         <div class="d-flex gap-2 align-items-center">
 
           <select
-            class="form-control"
-            style="width:180px"
+            class="form-control select-diagnostico"	
             onchange="cambiarTipoDiagnostico(${index}, this.value)"
           >
             <option value="PRINCIPAL"
@@ -1258,10 +1257,10 @@ function pintarDiagnosticosSeleccionados() {
           </select>
 
           <button
-            class="btn-delete"
+            <button class="btn-table btn-delete"
             onclick="eliminarDiagnosticoSeleccionado('${item.concept_id}')"
           >
-            <i class="bi bi-trash-fill"></i>
+            <i class="bi bi-trash"></i>
           </button>
 
         </div>
