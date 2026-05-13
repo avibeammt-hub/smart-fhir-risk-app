@@ -116,24 +116,50 @@ async function cargarRoles() {
 
 async function cargarProfesionales() {
   try {
-    const respuesta = await fetch(API_PROFESIONALES);
-    const data = await respuesta.json();
 
-    const profesionales = data.data || data || [];
-    const select = document.getElementById('usrProfesional');
+    const token = localStorage.getItem('token');
 
-    select.innerHTML = `<option value="">Seleccione...</option>`;
-
-    profesionales.forEach(item => {
-      select.innerHTML += `
-        <option value="${item.id_profesional}">
-          ${item.nombres} ${item.apellidos}
-        </option>
-      `;
+    const respuesta = await fetch(API_PROFESIONALES, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
 
+    const data = await respuesta.json();
+
+    if (!data.ok) {
+      throw new Error(data.mensaje || 'Error cargando profesionales');
+    }
+
+    const profesionales = data.data || [];
+
+    const select = document.getElementById('usrProfesional');
+
+    select.innerHTML = `
+      <option value="">Seleccione...</option>
+    `;
+
+    profesionales
+      .filter(p => p.activo == 1)
+      .forEach(item => {
+
+        select.innerHTML += `
+          <option value="${item.id_profesional}">
+            ${item.nombres} ${item.apellidos}
+          </option>
+        `;
+
+      });
+
   } catch (error) {
+
     console.error(error);
+
+    Swal.fire(
+      'Error',
+      'No fue posible cargar profesionales',
+      'error'
+    );
   }
 }
 
