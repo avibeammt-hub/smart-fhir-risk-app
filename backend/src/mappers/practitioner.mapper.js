@@ -1,8 +1,6 @@
 const construirPractitionerFHIR = (profesional) => {
   return {
     resourceType: 'Practitioner',
-	
-	resourceType:'Organization',
 		
 		meta: {
 				tag: 
