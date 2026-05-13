@@ -128,6 +128,7 @@ async function cargarProfesionales() {
 
     const data = await respuesta.json();
 
+	console.log(select);
 	console.log(JSON.stringify(data, null, 2));
 
     const profesionales = Array.isArray(data)
@@ -136,8 +137,7 @@ async function cargarProfesionales() {
 
     const select = document.getElementById('usrProfesional');
 	
-	console.log(select);
-	console.log(JSON.stringify(data, null, 2));
+	
 
     select.innerHTML = `
       <option value="">Seleccione...</option>
