@@ -617,3 +617,63 @@
 .modal-pro .modal-body{
   background:#ffffff !important;
 }
+
+.resultado-snomed{
+  background:#fff;
+  border-radius:18px;
+  border:1px solid #eee;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,.05);
+  max-height:320px;
+  overflow-y:auto;
+}
+
+.item-snomed{
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  transition:.2s;
+  border-bottom:1px solid #f5f5f5;
+}
+
+.item-snomed:hover{
+  background:#fff5ef;
+}
+
+.snomed-term{
+  font-weight:700;
+  color:#0f172a;
+}
+
+.snomed-code{
+  color:#94a3b8;
+  font-size:.85rem;
+}
+
+.empty-snomed{
+  padding:20px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+.diagnostico-card{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  border-radius:18px;
+  background:#fff7ed;
+  margin-bottom:14px;
+}
+
+.diagnostico-title{
+  font-weight:800;
+  color:#0f172a;
+}
+
+.diagnostico-code{
+  color:#94a3b8;
+  font-size:.9rem;
+}

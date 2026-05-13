@@ -1,4 +1,5 @@
 let bandejaValoracion = [];
+let diagnosticosSeleccionados = [];
 let pacienteSeleccionadoValoracion = null;
 
 let catalogosValoracion = {
@@ -11,6 +12,7 @@ async function inicializarValoracion() {
   await cargarCatalogosValoracion();
   await cargarBandejaValoracion();
   inicializarEventosRiesgo();
+  inicializarBuscadorDiagnosticos();
 
   setTimeout(() => {
     const buscar = document.getElementById('txtBuscarPacienteValoracion');
@@ -168,7 +170,8 @@ async function guardarValoracion() {
       recomendacion_general: document.getElementById('valRecomendacion').value,
       observaciones: construirObservacionesValoracion(),
 	  escalas: construirResultadosEscalas(),
-	  alertas: detectarAlertas()
+	  alertas: detectarAlertas(),
+	  diagnosticos: diagnosticosSeleccionados()
     };
 	
     if (!payload.motivo_consulta) {
@@ -1077,6 +1080,223 @@ function calcularFramingham() {
 
 }
 
+function inicializarBuscadorDiagnosticos() {
+
+  const input =
+    document.getElementById('txtBusquedaDiagnostico');
+
+  if (!input) return;
+
+  input.addEventListener('keyup', async e => {
+
+    const texto = e.target.value.trim();
+
+    if (texto.length < 2) {
+      limpiarResultadosDiagnostico();
+      return;
+    }
+
+    await buscarDiagnosticosSnomed(texto);
+
+  });
+
+}
+
+async function buscarDiagnosticosSnomed(texto) {
+
+  try {
+
+    const response = await fetch(
+      `${API_URL}/snomed/buscar?q=${texto}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    pintarResultadosDiagnostico(data.data || []);
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+
+}
+
+function pintarResultadosDiagnostico(items) {
+
+  const container =
+    document.getElementById('listaResultadosDiagnostico');
+
+  if (!items.length) {
+
+    container.innerHTML = `
+      <div class="empty-snomed">
+        Sin resultados
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = items.map(item => `
+
+    <div
+      class="item-snomed"
+      onclick='agregarDiagnosticoSeleccionado(${JSON.stringify(item)})'
+    >
+
+      <div>
+
+        <div class="snomed-term">
+          ${item.term}
+        </div>
+
+        <div class="snomed-code">
+          ${item.concept_id}
+        </div>
+
+      </div>
+
+      <span class="badge bg-primary">
+        SNOMED
+      </span>
+
+    </div>
+
+  `).join('');
+
+}
+
+function agregarDiagnosticoSeleccionado(item) {
+
+  const existe = diagnosticosSeleccionados.find(
+    x => x.concept_id === item.concept_id
+  );
+
+  if (existe) return;
+
+  diagnosticosSeleccionados.push({
+    ...item,
+    tipo_diagnostico: 'PRINCIPAL'
+  });
+
+  pintarDiagnosticosSeleccionados();
+
+  limpiarResultadosDiagnostico();
+
+  document.getElementById(
+    'txtBusquedaDiagnostico'
+  ).value = '';
+
+}
+
+function pintarDiagnosticosSeleccionados() {
+
+  const container =
+    document.getElementById(
+      'contenedorDiagnosticosSeleccionados'
+    );
+
+  if (!diagnosticosSeleccionados.length) {
+
+    container.innerHTML = `
+      <div class="empty-snomed">
+        No hay diagnósticos seleccionados
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    diagnosticosSeleccionados.map((item, index) => `
+
+      <div class="diagnostico-card">
+
+        <div>
+
+          <div class="diagnostico-title">
+            ${item.term}
+          </div>
+
+          <div class="diagnostico-code">
+            ${item.concept_id}
+          </div>
+
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+
+          <select
+            class="form-control"
+            style="width:180px"
+            onchange="cambiarTipoDiagnostico(${index}, this.value)"
+          >
+            <option value="PRINCIPAL"
+              ${item.tipo_diagnostico === 'PRINCIPAL' ? 'selected' : ''}
+            >
+              Principal
+            </option>
+
+            <option value="RELACIONADO"
+              ${item.tipo_diagnostico === 'RELACIONADO' ? 'selected' : ''}
+            >
+              Relacionado
+            </option>
+
+            <option value="COMPLICACION"
+              ${item.tipo_diagnostico === 'COMPLICACION' ? 'selected' : ''}
+            >
+              Complicación
+            </option>
+
+          </select>
+
+          <button
+            class="btn-delete"
+            onclick="eliminarDiagnosticoSeleccionado('${item.concept_id}')"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join('');
+
+}
+
+function cambiarTipoDiagnostico(index, valor) {
+
+  diagnosticosSeleccionados[index]
+    .tipo_diagnostico = valor;
+
+}
+
+function eliminarDiagnosticoSeleccionado(conceptId) {
+
+  diagnosticosSeleccionados =
+    diagnosticosSeleccionados.filter(
+      x => x.concept_id !== conceptId
+    );
+
+  pintarDiagnosticosSeleccionados();
+
+}
+
+function limpiarResultadosDiagnostico() {
+
+  document.getElementById(
+    'listaResultadosDiagnostico'
+  ).innerHTML = '';
+
+}
 
 function pintarAlertasClinicas(alertas) {
 

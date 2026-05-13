@@ -245,6 +245,40 @@
     Evaluación clínica
   </h5>
   
+  <hr class="my-4">
+
+<h5 class="fw-bold mb-3">
+  <i class="bi bi-clipboard2-pulse"></i>
+  Diagnósticos clínicos SNOMED CT
+</h5>
+
+<div class="row g-4 mb-4">
+
+  <div class="col-md-12">
+
+    <label class="form-label">
+      Buscar diagnóstico
+    </label>
+
+    <input
+      type="text"
+      id="txtBusquedaDiagnostico"
+      class="form-control"
+      placeholder="Ej: diabetes, hipertensión, asma..."
+      autocomplete="off"
+    >
+
+    <div
+      id="listaResultadosDiagnostico"
+      class="resultado-snomed mt-2"
+    ></div>
+
+  </div>
+
+</div>
+
+<div id="contenedorDiagnosticosSeleccionados"></div>
+  
   <div id="contenedorAlertasClinicas"></div>
   
   <div class="risk-banner risk-bajo" id="bannerRiesgo">
