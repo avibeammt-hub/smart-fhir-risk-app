@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {
   listarRoles
-} = require('../roles.controller');
+} = require('./roles.controller');
 
 router.get('/', listarRoles);
 
