@@ -13,6 +13,7 @@ const valoracionRoutes = require('./modules/valoracion/valoracion.routes');
 const usuariosRoutes = require('./modules/usuarios/usuarios.routes');
 const fhirViewerRoutes = require('./modules/fhir-viewer/fhir-viewer.routes');
 const snomedRoutes = require('./modules/snomed/snomed.routes');
+const rolesRoutes  = require('./modules/roles/roles.routes');
 
 const app = express();
 
@@ -47,5 +48,6 @@ app.use('/api/valoracion', valoracionRoutes);
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/fhir-viewer', fhirViewerRoutes);
 app.use('/api/snomed', snomedRoutes);
+app.use('/api/roles', rolesRoutes);
 
 module.exports = app;

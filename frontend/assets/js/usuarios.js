@@ -96,22 +96,58 @@ function pintarUsuarios() {
 }
 
 async function cargarRoles() {
-  const roles = [
-    { id_rol: 1, nombre_rol: 'ADMINISTRADOR' },
-    { id_rol: 2, nombre_rol: 'PROFESIONAL_CLINICO' },
-    { id_rol: 3, nombre_rol: 'AUDITOR' }
-  ];
 
-  const select = document.getElementById('usrRol');
-  select.innerHTML = `<option value="">Seleccione...</option>`;
+  try {
 
-  roles.forEach(rol => {
-    select.innerHTML += `
-      <option value="${rol.id_rol}">
-        ${rol.nombre_rol}
-      </option>
+    const token = localStorage.getItem('token');
+
+    const respuesta = await fetch(
+      'https://smart-fhir-risk-app.onrender.com/api/roles',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await respuesta.json();
+
+    console.log('ROLES:', data);
+
+    const roles = Array.isArray(data)
+      ? data
+      : (data.data || []);
+
+    const select = document.getElementById('usrRol');
+
+    select.innerHTML = `
+      <option value="">Seleccione...</option>
     `;
-  });
+
+    roles
+      .filter(r => r.activo == 1)
+      .forEach(rol => {
+
+        select.innerHTML += `
+          <option value="${rol.id_rol}">
+            ${rol.nombre_rol}
+          </option>
+        `;
+
+      });
+
+  } catch (error) {
+
+    console.error('ERROR ROLES:', error);
+
+    Swal.fire(
+      'Error',
+      'No fue posible cargar roles',
+      'error'
+    );
+
+  }
+
 }
 
 async function cargarProfesionales() {
