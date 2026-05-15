@@ -217,17 +217,11 @@ function editarUsuario(idUsuario) {
 
 async function cargarProfesionales() {
 
-  console.log('ENTRANDO A cargarProfesionales');
-
   try {
-
-    const select = document.getElementById('usrProfesional');
 
     const token = localStorage.getItem('token');
 
-    console.log('TOKEN:', token);
-
-    const response = await fetch(API_PROFESIONALES, {
+    const response = await fetch(`${API_PROFESIONALES}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -235,21 +229,19 @@ async function cargarProfesionales() {
 
     const resultado = await response.json();
 
-    console.log('RESPUESTA:', resultado);
+    console.log('PROFESIONALES:', resultado);
 
-    const profesionales = Array.isArray(resultado)
-      ? resultado
-      : (resultado.data || []);
+    const select = document.getElementById('usrProfesional');
 
     select.innerHTML = `
       <option value="">Seleccione...</option>
     `;
 
-    profesionales.forEach(prof => {
+    resultado.data.forEach(profesional => {
 
       select.innerHTML += `
-        <option value="${prof.id_profesional}">
-          ${prof.nombres} ${prof.apellidos}
+        <option value="${profesional.id_profesional}">
+          ${profesional.nombres} ${profesional.apellidos}
         </option>
       `;
 
@@ -257,7 +249,7 @@ async function cargarProfesionales() {
 
   } catch (error) {
 
-    console.error('ERROR PROFESIONALES:', error);
+    console.error('ERROR CARGANDO PROFESIONALES:', error);
 
   }
 
