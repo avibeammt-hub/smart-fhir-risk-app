@@ -221,13 +221,16 @@ async function cargarProfesionales() {
 
     const token = localStorage.getItem('token');
 
-    const response = await fetch(`${API_PROFESIONALES}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const respuesta = await fetch(
+      'https://smart-fhir-risk-app.onrender.com/api/profesionales',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    });
+    );
 
-    const data = await response.json();
+    const data = await respuesta.json();
 
     console.log('PROFESIONALES:', resultado); 
 	
