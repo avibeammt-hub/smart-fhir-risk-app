@@ -38,6 +38,8 @@ async function inicializarUsuarios() {
 
   await listarUsuarios();
   
+  console.log('Vercel Cargo');
+  
   const buscador = document.getElementById('txtBuscarUsuario');
   if (buscador) {
     buscador.addEventListener('input', () => pintarUsuarios());
@@ -287,6 +289,78 @@ function editarUsuario(idUsuario) {
  
   modalUsuario.show();
 }
+
+/*
+async function cargarProfesionales() {
+
+  console.log('ENTRANDO A cargarProfesionales');
+
+  try {
+
+    const select = document.getElementById('usrProfesional');
+
+    if (!select) {
+      console.error('NO EXISTE usrProfesional');
+      return;
+    }
+
+    select.innerHTML = `
+      <option value="">Cargando profesionales...</option>
+    `;
+
+    const token = localStorage.getItem('token');
+
+    console.log('TOKEN:', token);
+
+    const response = await fetch(API_PROFESIONALES, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    console.log('STATUS:', response.status);
+
+    const resultado = await response.json();
+
+    console.log('PROFESIONALES:', resultado);
+
+    select.innerHTML = `
+      <option value="">Seleccione...</option>
+    `;
+
+    if (!resultado.ok) {
+      console.error('ERROR BACKEND');
+      return;
+    }
+
+    resultado.data.forEach(prof => {
+
+      console.log('PROF:', prof);
+
+      const option = document.createElement('option');
+
+      option.value = prof.id_profesional;
+
+      option.textContent =
+        `${prof.nombres} ${prof.apellidos}`;
+
+      select.appendChild(option);
+
+    });
+
+    console.log('TOTAL:',
+      resultado.data.length);
+
+  } catch (error) {
+
+    console.error('ERROR PROFESIONALES:', error);
+
+  }
+
+}
+*/
 
 async function cargarProfesionales() {
 
