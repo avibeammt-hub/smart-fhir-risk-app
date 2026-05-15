@@ -95,6 +95,7 @@ function pintarUsuarios() {
   `).join('');
 }
 
+/*
 async function cargarRoles() {
   const roles = [
     { id_rol: 1, nombre_rol: 'ADMINISTRADOR' },
@@ -113,6 +114,7 @@ async function cargarRoles() {
     `;
   });
 }
+*/
 
 async function cargarProfesionales() {
 
