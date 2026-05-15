@@ -170,7 +170,7 @@ async function cargarRoles() {
   }
 
 }
-
+/*
 async function cargarProfesionales() {
 
   try {
@@ -222,7 +222,7 @@ async function cargarProfesionales() {
   }
 
 }
-
+*/
 async function abrirModalUsuario() {
 
   usuarioEditando = null;
@@ -235,7 +235,6 @@ async function abrirModalUsuario() {
     .classList.remove('d-none');
 
   await cargarProfesionales();
-  controlarProfesionalUsuario();
   modalUsuario.show();
 
 }
@@ -256,53 +255,9 @@ function editarUsuario(idUsuario) {
   document.getElementById('grupoClaveUsuario').classList.add('d-none');
   document.getElementById('usrClave').value = '';
 
-  controlarProfesionalUsuario();
+ 
   modalUsuario.show();
 }
-
-/*
-function controlarProfesionalUsuario() {
-  const selectRol = document.getElementById('usrRol');
-
-  const texto = selectRol.selectedOptions[0]
-    ? selectRol.selectedOptions[0].textContent.trim().toUpperCase()
-    : '';
-
-  const grupo = document.getElementById('grupoProfesionalUsuario');
-  const profesional = document.getElementById('usrProfesional');
-
-  if (texto === 'PROFESIONAL_CLINICO') {
-    grupo.classList.remove('d-none');
-  } else {
-    grupo.classList.add('d-none');
-    profesional.value = '';
-  }
-}
-
-
-function controlarProfesionalUsuario() {
-
-  const idRol = document.getElementById('usrRol').value;
-
-  const grupo = document.getElementById('grupoProfesionalUsuario');
-
-  const profesional = document.getElementById('usrProfesional');
-
-  if (parseInt(idRol) === 2) {
-
-    grupo.classList.remove('d-none');
-
-  } else {
-
-    grupo.classList.add('d-none');
-
-    profesional.value = '';
-
-  }
-
-}
-
-*/
 
 async function cargarProfesionales() {
 
