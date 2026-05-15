@@ -5,6 +5,7 @@ let modalUsuario = null;
 let usuariosMemoria = [];
 let usuarioEditando = null;
 
+/*
 async function inicializarUsuarios() {
   modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
 
@@ -17,6 +18,34 @@ async function inicializarUsuarios() {
     buscador.addEventListener('input', () => pintarUsuarios());
   }
 }
+*/
+
+async function inicializarUsuarios() {
+
+  console.log('INICIALIZANDO USUARIOS');
+
+  modalUsuario = new bootstrap.Modal(
+    document.getElementById('modalUsuario')
+  );
+
+  await cargarRoles();
+
+  console.log('ROLES OK');
+
+  await cargarProfesionales();
+
+  console.log('PROFESIONALES OK');
+
+  await listarUsuarios();
+  
+  const buscador = document.getElementById('txtBuscarUsuario');
+  if (buscador) {
+    buscador.addEventListener('input', () => pintarUsuarios());
+  }
+
+}
+
+
 
 async function listarUsuarios() {
   try {
