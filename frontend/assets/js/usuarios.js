@@ -235,7 +235,7 @@ async function abrirModalUsuario() {
     .classList.remove('d-none');
 
   await cargarProfesionales();
-  //controlarProfesionalUsuario();
+  controlarProfesionalUsuario();
   modalUsuario.show();
 
 }
@@ -256,7 +256,7 @@ function editarUsuario(idUsuario) {
   document.getElementById('grupoClaveUsuario').classList.add('d-none');
   document.getElementById('usrClave').value = '';
 
-  //controlarProfesionalUsuario();
+  controlarProfesionalUsuario();
   modalUsuario.show();
 }
 
@@ -304,11 +304,55 @@ function controlarProfesionalUsuario() {
 
 */
 
-function controlarProfesionalUsuario() {
+async function cargarProfesionales() {
 
-  const grupo = document.getElementById('grupoProfesionalUsuario');
+  try {
 
-  grupo.classList.remove('d-none');
+    const token = localStorage.getItem('token');
+
+    const respuesta = await fetch(API_PROFESIONALES, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await respuesta.json();
+
+    console.log('RESPUESTA PROFESIONALES:', data);
+
+    const profesionales = Array.isArray(data)
+      ? data
+      : (data.data || []);
+
+    console.log('PROFESIONALES:', profesionales);
+
+    const select = document.getElementById('usrProfesional');
+
+    select.innerHTML = `
+      <option value="">Seleccione...</option>
+    `;
+
+    profesionales.forEach(item => {
+
+      select.innerHTML += `
+        <option value="${item.id_profesional}">
+          ${item.nombres} ${item.apellidos}
+        </option>
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.error('ERROR PROFESIONALES:', error);
+
+    Swal.fire(
+      'Error',
+      'No fue posible cargar profesionales',
+      'error'
+    );
+
+  }
 
 }
 
