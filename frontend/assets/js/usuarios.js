@@ -47,8 +47,6 @@ async function inicializarUsuarios() {
 
 }
 
-
-
 async function listarUsuarios() {
   try {
     const respuesta = await fetch(API_USUARIOS);
@@ -126,27 +124,6 @@ function pintarUsuarios() {
   `).join('');
 }
 
-/*
-async function cargarRoles() {
-  const roles = [
-    { id_rol: 1, nombre_rol: 'ADMINISTRADOR' },
-    { id_rol: 2, nombre_rol: 'PROFESIONAL_CLINICO' },
-    { id_rol: 3, nombre_rol: 'AUDITOR' }
-  ];
-
-  const select = document.getElementById('usrRol');
-  select.innerHTML = `<option value="">Seleccione...</option>`;
-
-  roles.forEach(rol => {
-    select.innerHTML += `
-      <option value="${rol.id_rol}">
-        ${rol.nombre_rol}
-      </option>
-    `;
-  });
-}
-*/
-
 async function cargarRoles() {
 
   try {
@@ -201,59 +178,7 @@ async function cargarRoles() {
   }
 
 }
-/*
-async function cargarProfesionales() {
 
-  try {
-
-    const token = localStorage.getItem('token');
-
-    const respuesta = await fetch(API_PROFESIONALES, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const data = await respuesta.json();
-
-    const profesionales = Array.isArray(data)
-      ? data
-      : (data.data || []);
-
-    const select = document.getElementById('usrProfesional');
-	
-	
-
-    select.innerHTML = `
-      <option value="">Seleccione...</option>
-    `;
-
-    profesionales
-      .filter(p => p.activo == 1)
-      .forEach(item => {
-
-        select.innerHTML += `
-          <option value="${item.id_profesional}">
-            ${item.nombres} ${item.apellidos}
-          </option>
-        `;
-
-      });
-
-  } catch (error) {
-
-    console.error(error);
-
-    Swal.fire(
-      'Error',
-      'No fue posible cargar profesionales',
-      'error'
-    );
-
-  }
-
-}
-*/
 async function abrirModalUsuario() {
 
   usuarioEditando = null;
@@ -290,7 +215,6 @@ function editarUsuario(idUsuario) {
   modalUsuario.show();
 }
 
-/*
 async function cargarProfesionales() {
 
   console.log('ENTRANDO A cargarProfesionales');
@@ -298,100 +222,20 @@ async function cargarProfesionales() {
   try {
 
     const select = document.getElementById('usrProfesional');
-
-    if (!select) {
-      console.error('NO EXISTE usrProfesional');
-      return;
-    }
-
-    select.innerHTML = `
-      <option value="">Cargando profesionales...</option>
-    `;
 
     const token = localStorage.getItem('token');
 
     console.log('TOKEN:', token);
 
     const response = await fetch(API_PROFESIONALES, {
-      method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    console.log('STATUS:', response.status);
-
-    const resultado = await response.json();
-
-    console.log('PROFESIONALES:', resultado);
-
-    select.innerHTML = `
-      <option value="">Seleccione...</option>
-    `;
-
-    if (!resultado.ok) {
-      console.error('ERROR BACKEND');
-      return;
-    }
-
-    resultado.data.forEach(prof => {
-
-      console.log('PROF:', prof);
-
-      const option = document.createElement('option');
-
-      option.value = prof.id_profesional;
-
-      option.textContent =
-        `${prof.nombres} ${prof.apellidos}`;
-
-      select.appendChild(option);
-
-    });
-
-    console.log('TOTAL:',
-      resultado.data.length);
-
-  } catch (error) {
-
-    console.error('ERROR PROFESIONALES:', error);
-
-  }
-
-}
-*/
-
-async function cargarProfesionales() {
-
-  console.log('ENTRANDO A cargarProfesionales');
-
-  try {
-
-    const select = document.getElementById('usrProfesional');
-
-    if (!select) {
-      console.error('NO EXISTE usrProfesional');
-      return;
-    }
-
-    select.innerHTML = `
-      <option value="">Cargando profesionales...</option>
-    `;
-
-    const token = localStorage.getItem('token');
-
-    const response = await fetch(API_PROFESIONALES, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       }
     });
 
     const resultado = await response.json();
 
-    console.log('PROFESIONALES:', resultado);
+    console.log('RESPUESTA:', resultado);
 
     const profesionales = Array.isArray(resultado)
       ? resultado
@@ -403,18 +247,13 @@ async function cargarProfesionales() {
 
     profesionales.forEach(prof => {
 
-      const option = document.createElement('option');
-
-      option.value = prof.id_profesional;
-
-      option.textContent =
-        `${prof.nombres} ${prof.apellidos}`;
-
-      select.appendChild(option);
+      select.innerHTML += `
+        <option value="${prof.id_profesional}">
+          ${prof.nombres} ${prof.apellidos}
+        </option>
+      `;
 
     });
-
-    console.log('TOTAL:', profesionales.length);
 
   } catch (error) {
 
