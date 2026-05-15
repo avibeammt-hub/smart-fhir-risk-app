@@ -260,6 +260,7 @@ function editarUsuario(idUsuario) {
   modalUsuario.show();
 }
 
+/*
 function controlarProfesionalUsuario() {
   const selectRol = document.getElementById('usrRol');
 
@@ -276,6 +277,29 @@ function controlarProfesionalUsuario() {
     grupo.classList.add('d-none');
     profesional.value = '';
   }
+}
+*/
+
+function controlarProfesionalUsuario() {
+
+  const idRol = document.getElementById('usrRol').value;
+
+  const grupo = document.getElementById('grupoProfesionalUsuario');
+
+  const profesional = document.getElementById('usrProfesional');
+
+  if (parseInt(idRol) === 2) {
+
+    grupo.classList.remove('d-none');
+
+  } else {
+
+    grupo.classList.add('d-none');
+
+    profesional.value = '';
+
+  }
+
 }
 
 async function guardarUsuario() {
