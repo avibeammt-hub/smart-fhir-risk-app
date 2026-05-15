@@ -263,49 +263,55 @@ async function cargarProfesionales() {
 
   try {
 
+    const select = document.getElementById('usrProfesional');
+
+    // limpiar select
+    select.innerHTML = `
+      <option value="">Cargando profesionales...</option>
+    `;
+
     const token = localStorage.getItem('token');
 
-    const respuesta = await fetch(API_PROFESIONALES, {
+    console.log('TOKEN:', token);
+
+    const response = await fetch(API_PROFESIONALES, {
+      method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     });
 
-    const data = await respuesta.json();
+    const resultado = await response.json();
 
-    console.log('RESPUESTA PROFESIONALES:', data);
+    console.log('RESPUESTA PROFESIONALES:', resultado);
 
-    const profesionales = Array.isArray(data)
-      ? data
-      : (data.data || []);
+    const profesionales = resultado.data || [];
 
-    console.log('PROFESIONALES:', profesionales);
-
-    const select = document.getElementById('usrProfesional');
-
+    // limpiar nuevamente
     select.innerHTML = `
       <option value="">Seleccione...</option>
     `;
 
-    profesionales.forEach(item => {
+    profesionales.forEach(prof => {
 
-      select.innerHTML += `
-        <option value="${item.id_profesional}">
-          ${item.nombres} ${item.apellidos}
-        </option>
-      `;
+      const option = document.createElement('option');
+
+      option.value = prof.id_profesional;
+
+      option.textContent = `
+${prof.nombres || ''} ${prof.apellidos || ''}
+      `.trim();
+
+      select.appendChild(option);
 
     });
 
+    console.log('PROFESIONALES CARGADOS:', profesionales.length);
+
   } catch (error) {
 
-    console.error('ERROR PROFESIONALES:', error);
-
-    Swal.fire(
-      'Error',
-      'No fue posible cargar profesionales',
-      'error'
-    );
+    console.error('ERROR CARGANDO PROFESIONALES:', error);
 
   }
 
