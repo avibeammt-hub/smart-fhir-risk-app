@@ -235,7 +235,7 @@ async function abrirModalUsuario() {
     .classList.remove('d-none');
 
   await cargarProfesionales();
-  controlarProfesionalUsuario();
+  //controlarProfesionalUsuario();
   modalUsuario.show();
 
 }
@@ -256,7 +256,7 @@ function editarUsuario(idUsuario) {
   document.getElementById('grupoClaveUsuario').classList.add('d-none');
   document.getElementById('usrClave').value = '';
 
-  controlarProfesionalUsuario();
+  //controlarProfesionalUsuario();
   modalUsuario.show();
 }
 
@@ -278,7 +278,7 @@ function controlarProfesionalUsuario() {
     profesional.value = '';
   }
 }
-*/
+
 
 function controlarProfesionalUsuario() {
 
@@ -299,6 +299,16 @@ function controlarProfesionalUsuario() {
     profesional.value = '';
 
   }
+
+}
+
+*/
+
+function controlarProfesionalUsuario() {
+
+  const grupo = document.getElementById('grupoProfesionalUsuario');
+
+  grupo.classList.remove('d-none');
 
 }
 
