@@ -261,13 +261,19 @@ function editarUsuario(idUsuario) {
 
 async function cargarProfesionales() {
 
+  console.log('ENTRO A cargarProfesionales');
+
   try {
 
     const select = document.getElementById('usrProfesional');
 
-    // limpiar select
+    if (!select) {
+      console.error('NO EXISTE EL SELECT usrProfesional');
+      return;
+    }
+
     select.innerHTML = `
-      <option value="">Cargando profesionales...</option>
+      <option value="">Cargando...</option>
     `;
 
     const token = localStorage.getItem('token');
@@ -284,34 +290,36 @@ async function cargarProfesionales() {
 
     const resultado = await response.json();
 
-    console.log('RESPUESTA PROFESIONALES:', resultado);
+    console.log('PROFESIONALES:', resultado);
 
-    const profesionales = resultado.data || [];
-
-    // limpiar nuevamente
     select.innerHTML = `
       <option value="">Seleccione...</option>
     `;
 
-    profesionales.forEach(prof => {
+    if (!resultado.ok) {
+      console.error('BACKEND ERROR');
+      return;
+    }
+
+    resultado.data.forEach(prof => {
 
       const option = document.createElement('option');
 
       option.value = prof.id_profesional;
 
-      option.textContent = `
-${prof.nombres || ''} ${prof.apellidos || ''}
-      `.trim();
+      option.textContent =
+        `${prof.nombres} ${prof.apellidos}`;
 
       select.appendChild(option);
 
     });
 
-    console.log('PROFESIONALES CARGADOS:', profesionales.length);
+    console.log('TOTAL PROFESIONALES:',
+      resultado.data.length);
 
   } catch (error) {
 
-    console.error('ERROR CARGANDO PROFESIONALES:', error);
+    console.error('ERROR PROFESIONALES:', error);
 
   }
 
