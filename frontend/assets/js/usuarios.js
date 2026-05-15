@@ -116,6 +116,61 @@ async function cargarRoles() {
 }
 */
 
+async function cargarRoles() {
+
+  try {
+
+    const token = localStorage.getItem('token');
+
+    const respuesta = await fetch(
+      'https://smart-fhir-risk-app.onrender.com/api/roles',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    const data = await respuesta.json();
+
+    console.log('ROLES:', data);
+
+    const roles = Array.isArray(data)
+      ? data
+      : (data.data || []);
+
+    const select = document.getElementById('usrRol');
+
+    select.innerHTML = `
+      <option value="">Seleccione...</option>
+    `;
+
+    roles
+      .filter(r => r.activo == 1)
+      .forEach(rol => {
+
+        select.innerHTML += `
+          <option value="${rol.id_rol}">
+            ${rol.nombre_rol}
+          </option>
+        `;
+
+      });
+
+  } catch (error) {
+
+    console.error('ERROR ROLES:', error);
+
+    Swal.fire(
+      'Error',
+      'No fue posible cargar roles',
+      'error'
+    );
+
+  }
+
+}
+
 async function cargarProfesionales() {
 
   try {
