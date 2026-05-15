@@ -290,19 +290,19 @@ function editarUsuario(idUsuario) {
 
 async function cargarProfesionales() {
 
-  console.log('ENTRO A cargarProfesionales');
+  console.log('ENTRANDO A cargarProfesionales');
 
   try {
 
     const select = document.getElementById('usrProfesional');
 
     if (!select) {
-      console.error('NO EXISTE EL SELECT usrProfesional');
+      console.error('NO EXISTE usrProfesional');
       return;
     }
 
     select.innerHTML = `
-      <option value="">Cargando...</option>
+      <option value="">Cargando profesionales...</option>
     `;
 
     const token = localStorage.getItem('token');
@@ -317,6 +317,8 @@ async function cargarProfesionales() {
       }
     });
 
+    console.log('STATUS:', response.status);
+
     const resultado = await response.json();
 
     console.log('PROFESIONALES:', resultado);
@@ -326,11 +328,13 @@ async function cargarProfesionales() {
     `;
 
     if (!resultado.ok) {
-      console.error('BACKEND ERROR');
+      console.error('ERROR BACKEND');
       return;
     }
 
     resultado.data.forEach(prof => {
+
+      console.log('PROF:', prof);
 
       const option = document.createElement('option');
 
@@ -343,7 +347,7 @@ async function cargarProfesionales() {
 
     });
 
-    console.log('TOTAL PROFESIONALES:',
+    console.log('TOTAL:',
       resultado.data.length);
 
   } catch (error) {
@@ -353,7 +357,6 @@ async function cargarProfesionales() {
   }
 
 }
-
 async function guardarUsuario() {
   try {
     const rolTexto = document.getElementById('usrRol')
