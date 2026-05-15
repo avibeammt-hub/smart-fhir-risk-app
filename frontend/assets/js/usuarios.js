@@ -307,8 +307,6 @@ async function cargarProfesionales() {
 
     const token = localStorage.getItem('token');
 
-    console.log('TOKEN:', token);
-
     const response = await fetch(API_PROFESIONALES, {
       method: 'GET',
       headers: {
@@ -317,24 +315,19 @@ async function cargarProfesionales() {
       }
     });
 
-    console.log('STATUS:', response.status);
-
     const resultado = await response.json();
 
     console.log('PROFESIONALES:', resultado);
+
+    const profesionales = Array.isArray(resultado)
+      ? resultado
+      : (resultado.data || []);
 
     select.innerHTML = `
       <option value="">Seleccione...</option>
     `;
 
-    if (!resultado.ok) {
-      console.error('ERROR BACKEND');
-      return;
-    }
-
-    resultado.data.forEach(prof => {
-
-      console.log('PROF:', prof);
+    profesionales.forEach(prof => {
 
       const option = document.createElement('option');
 
@@ -347,8 +340,7 @@ async function cargarProfesionales() {
 
     });
 
-    console.log('TOTAL:',
-      resultado.data.length);
+    console.log('TOTAL:', profesionales.length);
 
   } catch (error) {
 
@@ -357,6 +349,7 @@ async function cargarProfesionales() {
   }
 
 }
+
 async function guardarUsuario() {
   try {
     const rolTexto = document.getElementById('usrRol')
