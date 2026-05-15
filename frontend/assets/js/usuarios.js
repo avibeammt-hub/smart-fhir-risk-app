@@ -227,9 +227,13 @@ async function cargarProfesionales() {
       }
     });
 
-    const resultado = await response.json();
+    const data = await response.json();
 
-    console.log('PROFESIONALES:', resultado);
+    console.log('PROFESIONALES:', resultado); 
+	
+	const profesionales = Array.isArray(data)
+      ? data
+      : (data.data || []);
 
     const select = document.getElementById('usrProfesional');
 
@@ -237,7 +241,9 @@ async function cargarProfesionales() {
       <option value="">Seleccione...</option>
     `;
 
-    resultado.data.forEach(profesional => {
+	profesionales
+      .filter(r => r.activo == 1)
+      .forEach(profesional => {
 
       select.innerHTML += `
         <option value="${profesional.id_profesional}">
