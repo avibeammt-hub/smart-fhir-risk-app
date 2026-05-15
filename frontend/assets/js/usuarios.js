@@ -492,8 +492,4 @@ function limpiarFormularioUsuario() {
   document.getElementById('usrRol').value = '';
   document.getElementById('usrProfesional').value = '';
 
-  document
-    .getElementById('grupoProfesionalUsuario')
-    //.classList.add('d-none');
-	.classList.remove('d-none');
 }
