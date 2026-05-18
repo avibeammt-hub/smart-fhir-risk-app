@@ -232,9 +232,9 @@ async function cargarProfesionales() {
 
     const data = await respuesta.json();
 
-    console.log('PROFESIONALES:', resultado); 
-	
-	const profesionales = Array.isArray(data)
+    console.log('PROFESIONALES:', data);
+
+    const profesionales = Array.isArray(data)
       ? data
       : (data.data || []);
 
@@ -244,9 +244,7 @@ async function cargarProfesionales() {
       <option value="">Seleccione...</option>
     `;
 
-	profesionales
-      .filter(r => r.activo == 1)
-      .forEach(profesional => {
+    profesionales.forEach(profesional => {
 
       select.innerHTML += `
         <option value="${profesional.id_profesional}">
