@@ -221,7 +221,7 @@ async function cargarProfesionales() {
 
     const token = localStorage.getItem('token');
 
-    const respuesta = await fetch(
+    const response = await fetch(
       'https://smart-fhir-risk-app.onrender.com/api/profesionales',
       {
         headers: {
@@ -230,19 +230,23 @@ async function cargarProfesionales() {
       }
     );
 
-    const data = await respuesta.json();
+    const data = await response.json();
 
     console.log('PROFESIONALES:', data);
 
-    const profesionales = Array.isArray(data)
-      ? data
-      : (data.data || []);
-
     const select = document.getElementById('usrProfesional');
+
+    if (!select) {
+      console.error('NO EXISTE usrProfesional');
+      return;
+    }
 
     select.innerHTML = `
       <option value="">Seleccione...</option>
     `;
+
+    // AQUI ESTA LA CLAVE
+    const profesionales = data.data || [];
 
     profesionales.forEach(profesional => {
 
@@ -254,6 +258,8 @@ async function cargarProfesionales() {
 
     });
 
+    console.log('PROFESIONALES CARGADOS:', profesionales.length);
+
   } catch (error) {
 
     console.error('ERROR CARGANDO PROFESIONALES:', error);
@@ -261,7 +267,6 @@ async function cargarProfesionales() {
   }
 
 }
-
 async function guardarUsuario() {
   try {
     const rolTexto = document.getElementById('usrRol')
