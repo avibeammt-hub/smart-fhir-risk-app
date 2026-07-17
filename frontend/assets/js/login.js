@@ -1,71 +1,72 @@
-//const API_URL = 'http://localhost:3001/api';
+// const API_URL = 'http://localhost:3001/api';
 const API_URL = 'https://smart-fhir-risk-app.onrender.com/api';
 
 const formLogin = document.getElementById('formLogin');
 
 formLogin.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    e.preventDefault();
+  const btnLogin = document.getElementById('btnLogin');
 
-    const usuario = document.getElementById('usuario').value;
-    const clave = document.getElementById('clave').value;
+  if (Loading.isButtonLoading(btnLogin)) {
+    return;
+  }
 
-    try {
+  const usuario = document.getElementById('usuario').value.trim();
+  const clave = document.getElementById('clave').value;
 
-        const response = await fetch(`${API_URL}/auth/login`, {
+  Loading.showButton(btnLogin, 'Validando credenciales...');
 
-            method: 'POST',
+  try {
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        usuario,
+        clave
+      })
+    });
 
-            headers: {
-                'Content-Type': 'application/json'
-            },
+    const data = await response.json();
 
-            body: JSON.stringify({
-                usuario,
-                clave
-            })
+    if (!response.ok || !data.ok) {
+      Loading.hideButton(btnLogin);
 
-        });
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: data.mensaje || 'Credenciales inválidas'
+      });
 
-        const data = await response.json();
-
-        if(!data.ok){
-
-            Swal.fire({
-                icon:'error',
-                title:'Error',
-                text:data.mensaje
-            });
-
-            return;
-        }
-
-        localStorage.setItem('token', data.token);
-
-        localStorage.setItem('usuario', JSON.stringify(data.usuario));
-
-        Swal.fire({
-            icon:'success',
-            title:'Bienvenido',
-            text:data.usuario.nombre_completo,
-            timer:1500,
-            showConfirmButton:false
-        });
-
-        setTimeout(() => {
-            window.location.href = './dashboard.html';
-        }, 1500);
-
-    } catch (error) {
-
-        console.error(error);
-
-        Swal.fire({
-            icon:'error',
-            title:'Error',
-            text:'No fue posible conectar con el servidor'
-        });
-
+      return;
     }
 
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Bienvenido',
+      text: data.usuario.nombre_completo,
+      timer: 1500,
+      showConfirmButton: false
+    });
+
+    setTimeout(() => {
+      window.location.href = './dashboard.html';
+    }, 1500);
+
+  } catch (error) {
+    Loading.hideButton(btnLogin);
+
+    console.error(error);
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No fue posible conectar con el servidor'
+    });
+  }
 });
