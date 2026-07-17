@@ -308,6 +308,7 @@ function construirObservacionesValoracion() {
  ].filter(o => o.valor_numerico !== '' || o.valor_texto !== '');
 }
 
+/*
 function limpiarFormularioValoracion() {
     document.getElementById('valMotivoConsulta').value = '';
     document.getElementById('obsFC').value = '';
@@ -330,6 +331,58 @@ function limpiarFormularioValoracion() {
 	document.getElementById('textoRiesgoDetalle').textContent = 'Paciente estable clínicamente';
 	pintarAlertasClinicas([]);
   
+}
+*/
+
+function limpiarFormularioValoracion() {
+  document.getElementById('valMotivoConsulta').value = '';
+
+  document.getElementById('obsFC').value = '';
+  document.getElementById('obsFR').value = '';
+  document.getElementById('obsTemp').value = '';
+  document.getElementById('obsSat').value = '';
+  document.getElementById('obsPeso').value = '';
+  document.getElementById('obsTalla').value = '';
+  document.getElementById('obsTas').value = '';
+  document.getElementById('obsTad').value = '';
+  document.getElementById('obsPam').value = '';
+  document.getElementById('obsImc').value = '';
+  document.getElementById('obsImcClasificacion').value = '';
+  document.getElementById('obsDolor').value = '';
+
+  document.getElementById('riskActividadFisica').value = '';
+  document.getElementById('riskFrutasVerduras').value = '';
+  document.getElementById('riskMedicamentoHTA').value = '';
+  document.getElementById('riskGlucosaAlta').value = '';
+  document.getElementById('riskFamiliarDiabetes').value = '';
+  document.getElementById('riskFumador').value = '';
+  document.getElementById('riskColesterolTotal').value = '';
+  document.getElementById('riskHdl').value = '';
+
+  document.getElementById('scoreFindrisc').value = '';
+  document.getElementById('clasificacionFindrisc').value = '';
+  document.getElementById('scoreFramingham').value = '';
+  document.getElementById('clasificacionFramingham').value = '';
+  document.getElementById('scoreNews2').value = '';
+  document.getElementById('clasificacionNews2').value = '';
+  document.getElementById('interpretacionNews2').value = '';
+
+  document.getElementById('valRiesgo').value = '';
+  document.getElementById('valRecomendacion').value = '';
+
+  diagnosticosSeleccionados = [];
+  pintarDiagnosticosSeleccionados();
+
+  document.getElementById('bannerRiesgo').className =
+    'risk-banner risk-bajo';
+
+  document.getElementById('textoRiesgo').textContent =
+    'SIN CALCULAR';
+
+  document.getElementById('textoRiesgoDetalle').textContent =
+    'Ingrese signos vitales para calcular el riesgo';
+
+  pintarAlertasClinicas([]);
 }
 
 function claseRiesgo(riesgo) {
