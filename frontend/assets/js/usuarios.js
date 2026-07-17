@@ -29,19 +29,11 @@ async function inicializarUsuarios() {
   );
 
   await cargarRoles();
-
-  console.log('ROLES OK');
-
   await cargarProfesionales();
-
-  console.log('PROFESIONALES OK');
-
   await listarUsuarios();
-  
-  console.log('Vercel Cargo');
-  
   const buscador = document.getElementById('txtBuscarUsuario');
   if (buscador) {
+	buscador.value = '';
     buscador.addEventListener('input', () => pintarUsuarios());
   }
 
