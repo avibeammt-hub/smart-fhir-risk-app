@@ -155,49 +155,38 @@ function abrirValoracion(paciente) {
 }
 
 async function guardarValoracion() {
-  const btn = document.getElementById('btnGuardarValoracion');
-
-  if (!btn) {
-    console.error('No se encontró btnGuardarValoracion');
-    return;
-  }
-
-  if (Loading.isButtonLoading(btn)) {
-    return;
-  }
-
-  Loading.showButton(btn, 'Guardando valoración...');
-
   try {
     if (!pacienteSeleccionadoValoracion) {
       throw new Error('Seleccione un paciente');
     }
-
+		
     const payload = {
       id_paciente: pacienteSeleccionadoValoracion.id_paciente,
       id_profesional: obtenerProfesionalActual(),
       id_servicio_clinico: obtenerServicioActual(),
       tipo_contacto: document.getElementById('valTipoContacto').value,
-      motivo_consulta: document.getElementById('valMotivoConsulta').value.trim(),
+      motivo_consulta: document.getElementById('valMotivoConsulta').value,
       riesgo_global: document.getElementById('valRiesgo').value,
       recomendacion_general: document.getElementById('valRecomendacion').value,
       observaciones: construirObservacionesValoracion(),
-      escalas: construirResultadosEscalas(),
-      alertas: detectarAlertas(),
-      diagnosticos: diagnosticosSeleccionados
+	  escalas: construirResultadosEscalas(),
+	  alertas: detectarAlertas(),
+	  diagnosticos: diagnosticosSeleccionados
     };
-
+	
     if (!payload.motivo_consulta) {
-      throw new Error('Ingrese el motivo de consulta');
-    }
+	  throw new Error('Ingrese el motivo de consulta');
+	}
 
-    if (!payload.id_profesional) {
-      throw new Error('Seleccione el profesional');
-    }
+	if (!payload.id_profesional) {
+	  throw new Error('Seleccione el profesional');
+	}
 
-    if (!payload.id_servicio_clinico) {
-      throw new Error('Seleccione el servicio clínico');
-    }
+	if (!payload.id_servicio_clinico) {
+	  throw new Error('Seleccione el servicio clínico');
+	}
+	
+	
 
     const response = await fetch(`${API_URL}/valoracion`, {
       method: 'POST',
@@ -210,33 +199,22 @@ async function guardarValoracion() {
 
     const data = await response.json();
 
-    if (!response.ok || !data.ok) {
-      throw new Error(data.mensaje || 'No fue posible guardar la valoración');
-    }
+    if (!data.ok) throw new Error(data.mensaje);
 
-    await Swal.fire({
+    Swal.fire({
       icon: 'success',
       title: 'Valoración guardada',
-      text: data.mensaje || 'La valoración fue registrada correctamente',
+      text: data.mensaje,
       timer: 1800,
       showConfirmButton: false
     });
 
     await cargarBandejaValoracion();
+	volverBandejaValoracion();
 
-    Loading.hideButton(btn);
-    volverBandejaValoracion();
 
   } catch (error) {
-    Loading.hideButton(btn);
-
-    console.error('Error guardando valoración:', error);
-
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: error.message
-    });
+    Swal.fire('Error', error.message, 'error');
   }
 }
 

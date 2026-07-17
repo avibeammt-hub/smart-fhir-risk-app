@@ -8,56 +8,45 @@ formLogin.addEventListener('submit', async (e) => {
 
   const btnLogin = document.getElementById('btnLogin');
 
-  // Evita enviar el formulario dos veces
   if (Loading.isButtonLoading(btnLogin)) {
     return;
   }
 
-  const usuario = document
-    .getElementById('usuario')
-    .value
-    .trim();
+  const usuario = document.getElementById('usuario').value.trim();
+  const clave = document.getElementById('clave').value;
 
-  const clave = document
-    .getElementById('clave')
-    .value;
-
-  Loading.showButton(
-    btnLogin,
-    'Validando credenciales...'
-  );
+  Loading.showButton(btnLogin, 'Validando credenciales...');
 
   try {
-    const response = await fetch(
-      `${API_URL}/auth/login`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          usuario,
-          clave
-        })
-      }
-    );
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        usuario,
+        clave
+      })
+    });
 
     const data = await response.json();
 
     if (!response.ok || !data.ok) {
-      throw new Error(
-        data.mensaje || 'Credenciales incorrectas'
-      );
+      Loading.hideButton(btnLogin);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: data.mensaje || 'Credenciales inválidas'
+      });
+
+      return;
     }
 
     localStorage.setItem('token', data.token);
+    localStorage.setItem('usuario', JSON.stringify(data.usuario));
 
-    localStorage.setItem(
-      'usuario',
-      JSON.stringify(data.usuario)
-    );
-
-    await Swal.fire({
+    Swal.fire({
       icon: 'success',
       title: 'Bienvenido',
       text: data.usuario.nombre_completo,
@@ -65,17 +54,19 @@ formLogin.addEventListener('submit', async (e) => {
       showConfirmButton: false
     });
 
-    window.location.href = './dashboard.html';
+    setTimeout(() => {
+      window.location.href = './dashboard.html';
+    }, 1500);
 
   } catch (error) {
-    console.error('Error en login:', error);
-
     Loading.hideButton(btnLogin);
+
+    console.error(error);
 
     Swal.fire({
       icon: 'error',
       title: 'Error',
-      text: error.message || 'No fue posible conectar con el servidor'
+      text: 'No fue posible conectar con el servidor'
     });
   }
 });
