@@ -5,10 +5,17 @@ const construirConditionFHIR = ({
   termino,
   tipo_diagnostico
 }) => {
-
   return {
-
     resourceType: 'Condition',
+
+    meta: {
+      tag: [
+        {
+          system: 'https://fhirrisk.local/project',
+          code: 'smart-fhir-risk-app'
+        }
+      ]
+    },
 
     clinicalStatus: {
       coding: [
@@ -69,9 +76,7 @@ const construirConditionFHIR = ({
         text: `Tipo diagnóstico: ${tipo_diagnostico}`
       }
     ]
-
   };
-
 };
 
 module.exports = {
