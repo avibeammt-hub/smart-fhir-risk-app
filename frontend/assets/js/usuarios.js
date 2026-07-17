@@ -33,7 +33,21 @@ async function inicializarUsuarios() {
   await listarUsuarios();
   const buscador = document.getElementById('txtBuscarUsuario');
   if (buscador) {
+
 	buscador.value = '';
+    buscador.setAttribute('autocomplete', 'off');
+
+	  setTimeout(() => {
+		buscador.value = '';
+		pintarUsuarios();
+	  }, 150);
+
+	  setTimeout(() => {
+		buscador.value = '';
+		pintarUsuarios();
+	  }, 600);
+
+	
     buscador.addEventListener('input', () => pintarUsuarios());
   }
 
